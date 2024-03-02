@@ -189,11 +189,7 @@ footer nav ul {
 /* LOGIN PAGE */
 
 body {
-	font-family: 'Syne';
-	margin: 0;
-	padding: 0;
 	background: #FFFEF8;
-	;
 	color: #333333;
   }
   
@@ -217,7 +213,7 @@ body {
   }
 
   nav .login {
-	text-decoration: underline;
+	font-weight: 700;
   }
 
   nav img  {
@@ -232,9 +228,8 @@ body {
 	text-align: center;
   }
   
-  .login-container h1 {
+  .login-container h2 {
 	margin-bottom: 20px;
-	color: #1D6154;
   }
   
   #loginForm {
@@ -275,11 +270,12 @@ body {
 
   #loginForm label {
 	text-align: left;
-	margin: 2em 0 1em 0;
+	margin: 2em 0 10px 0;
+	font-weight: 600;
   }
   
   footer {
-	text-align: center;
+	margin-top: 280px;
 	padding: 20px;
   }
   
