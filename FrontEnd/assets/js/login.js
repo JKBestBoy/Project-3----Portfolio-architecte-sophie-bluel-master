@@ -82,3 +82,4 @@ function logout() {
         window.location.reload();
         console.log("Déconnexion réussie.");
 }
+
