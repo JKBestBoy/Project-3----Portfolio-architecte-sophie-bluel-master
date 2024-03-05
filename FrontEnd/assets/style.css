@@ -165,7 +165,6 @@ li:hover {
     display: block !important;
 }
 
-
 .filter-container{
 	display: flex;
 	justify-content: center;
@@ -364,3 +363,108 @@ body {
 	color: #333333;
   }
   
+
+/* MODALE */
+
+.modal {
+	display: flex; /* Caché par défaut */
+	position: fixed; /* Reste en place */
+	justify-content: center;
+	align-items: center;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	background:  rgba(0, 0, 0, 0.4);
+}
+  
+.modal-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 30px;
+	background-color: #FFFFFF;
+	margin: 5% auto;
+	padding: 60px 50px;
+	border-radius: 15px;
+	width: 60%;
+	max-width: 900px;
+	position: relative;
+}
+
+.close-button {
+	position: absolute;
+	top: 25px;
+	right: 30px;
+	color: black;
+	font-size: 28px;
+	font-weight: bold;
+	cursor: pointer;
+}
+  
+.modal-gallery {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	gap: 10px;
+	margin-top: 20px;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-row-gap: 30px;
+  }
+  
+.modal-gallery figure {
+	position: relative;
+}
+.modal-title {
+	color: #000;
+	font-family: Work Sans;
+	font-size: 26px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+.modal-gallery img {
+	Width: 76.86px;
+	Height: 02.57px;
+	height: auto;
+	object-fit: cover;
+	border-radius: 5px;
+}
+  
+.submit-button {
+	font-family: 'Syne';
+	display: block;
+	padding: 10px 20px;
+	background-color: #1D6154;
+	color: white;
+	border: none;
+	border-radius: 20px;
+	cursor: pointer;
+	width: 45%;
+}
+
+
+.gallery-item {
+	position: relative;
+}
+
+.delete-icon  i {
+	color: white;
+}
+
+.delete-icon {
+	background-color: #000;
+	width: 17px;
+	height: 17px;
+	border-radius: 2px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	position: absolute;
+	top: 6px;
+	right: 6px;
+	z-index: 2;
+}
+
+ 
