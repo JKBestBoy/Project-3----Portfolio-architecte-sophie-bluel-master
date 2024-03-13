@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	<meta charset="UTF-8">
-	<title>Sophie Bluel - Architecte d'intérieur</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
-	<meta name="description" content="">
-	<link rel="stylesheet" href="./assets/style.css">
-	<script src="./assets/js/login.js" defer crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <title>Sophie Bluel - Architecte d'intérieur</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="./assets/style.css">
+    <script src="./assets/js/login.js" defer crossorigin="anonymous"></script>
     <script src="./assets/js/script.js" type="module" defer crossorigin="anonymous"></script>
-	<script src="./assets/js/modal.js" defer crossorigin="anonymous"></script>
-
+    <script src="./assets/js/modal.js" defer crossorigin="anonymous"></script>
 </head>
 <body>
 <header>
@@ -61,16 +62,38 @@
 			<span class="close-button">×</span>
 		  <h2 class="modal-title">Galerie photo</h2>
 		  <div class="modal-gallery">
-			<i class="fa-regular fa-image fa-5x" style="color: #b9c5cc;"></i>
-			<!-- Ajoutez vos images ici avec la structure suivante pour chaque image -->
 			<div class="gallery-item">
+				<i class="fa-solid fa-trash-can"></i>
 			</div>
-			<!-- Répétez pour chaque image -->
-		  </div>
-		  <button class="submit-button">Ajouter une photo</button>
+		</div>
+		<hr class="form-separator" />
+		<button class="add-button" id="toggleFormButton">Ajouter une photo</button>
+		<div class="modal-form-content" id="addPhotoFormContainer" style="display: none;">
+			<i class="fas fa-arrow-left"></i>
+			<form id="addPhotoForm" class="add-photo-form" enctype="multipart/form-data">
+			<div class="image-upload-container">
+				<i class="far fa-image fa-5x" style="color: #b9c5cc;"></i>
+			  <label for="imageUpload" class="image-upload-label">
+				+ Ajouter photo
+				<input type="file" id="imageUpload" name="imageUpload" accept=".jpg, .jpeg, .png" hidden>
+			  </label>
+			  <p class="image-upload-info">jpg, png : 4mo max</p>
+			</div>
+			<div class="form-group">
+			  <label for="imageTitle">Titre</label>
+			  <input type="text" id="imageTitle" name="imageTitle" required>
+			</div>
+			<div class="form-group">
+			  <label for="imageCategory">Catégorie</label>
+			  <select id="imageCategory" name="imageCategory" required>
+			  </select>
+			</div>
+			<hr class="form-separator" />
+			<button type="submit" class="submit-button">Valider</button>
+		  </form>
 		</div>
 	  </div>
-	  
+	</div>
   <!-- Fin de la fenêtre modale -->
   
 	<section id="contact">

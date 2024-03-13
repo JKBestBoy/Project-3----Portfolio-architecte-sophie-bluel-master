@@ -73,6 +73,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 });
 
+
+// Assurez-vous d'appeler cette fonction après que le DOM est complètement chargé
+document.addEventListener('DOMContentLoaded', checkLoginAndDisplayEditMode);
+
+
 // Fonction pour gérer la déconnexion
 function logout() {
     // Effacer le token de sessionStorage
