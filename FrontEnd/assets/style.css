@@ -381,7 +381,6 @@ body {
 
 .mode-edit-icon {
     margin-right: 10px;
-    /* Ajoutez votre style d'icône ici, par exemple une icône FontAwesome ou un emoji */
 }
 
 
@@ -389,8 +388,8 @@ body {
 
 
 .modal {
-	display: none; /* Garantit que la modale est cachée au départ */
-	position: fixed; /* Reste en place */
+	display: none;
+	position: fixed;
 	justify-content: center;
 	align-items: center;
 	top: 0px;
@@ -591,16 +590,16 @@ body {
 }
   
 .image-upload-info {
-    margin-top: 10px; /* Ajustez l'espacement selon le besoin */
-    color: #666; /* Couleur du texte */
-    font-size: 10px; /* Taille du texte */
+    margin-top: 10px;
+    color: #666;
+    font-size: 10px;
 
 }
 
 
 .far-regular {
-	width: auto; /* ou la largeur souhaitée */
-    height: auto; /* ou la hauteur souhaitée */
+	width: auto;
+    height: auto;
     aspect-ratio: 1;
 }
 

@@ -88,9 +88,9 @@ document.addEventListener('DOMContentLoaded', () => {
         modalGallery.style.display = 'none';
         modalForm.style.display = 'block';
         document.querySelector('.form-separator').style.display = 'none'; // Cache la barre de séparation
-        var modalTitle = document.querySelector('.modal-title'); // Assurez-vous que '.modal-title' est le sélecteur correct pour votre titre de modale
+        var modalTitle = document.querySelector('.modal-title');
         if (modalTitle) modalTitle.textContent = 'Ajout photo';
-        var addButton = document.querySelector('.add-button'); // Utilisez le sélecteur correct pour votre bouton
+        var addButton = document.querySelector('.add-button');
         if (addButton) addButton.style.display = 'none';
         var formSeparator = document.querySelector('.form-separator');
         if (formSeparator) separator.style.display = 'none';    }
@@ -107,23 +107,18 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             const categories = await reponse.json();
     
-            // Assurez-vous que l'élément select est vide avant d'ajouter de nouvelles options
             selectCategorie.innerHTML = '';
     
-            // Créez une option par défaut si nécessaire
             selectCategorie.appendChild(new Option('', ''));
     
-            // Utilisez la propriété correcte de votre réponse JSON ici
             categories.forEach(categorie => {
                 const option = document.createElement('option');
                 option.value = categorie.id; 
-                option.textContent = categorie.name; // Assurez-vous que 'name' est la propriété correcte
+                option.textContent = categorie.name;
                 selectCategorie.appendChild(option);
             });
         } catch (erreur) {
             console.error("Erreur lors du chargement des catégories : ", erreur);
-            // Gérez l'erreur comme il se doit, peut-être en affichant un message à l'utilisateur
-        }
     }
     
     document.addEventListener('DOMContentLoaded', chargerCategoriesPourFormulaires);
@@ -150,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const imgPreview = document.createElement('img');
                     imgPreview.src = e.target.result;
                     imgPreview.alt = 'Aperçu de l\'image';
-                    imgPreview.style.maxWidth = '100%';  // Ou toute autre style nécessaire
+                    imgPreview.style.maxWidth = '100%';
                     imgPreview.style.height = 'auto';  // Conserver le ratio de l'image
     
                     // Ajouter l'aperçu de l'image au conteneur
@@ -172,10 +167,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function showGallery() {
         modalGallery.style.display = 'grid';
         modalForm.style.display = 'none';
-        document.querySelector('.form-separator').style.display = 'block'; // Assurez-vous d'afficher la barre de séparation
-        var modalTitle = document.querySelector('.modal-title'); // Assurez-vous que '.modal-title' est le sélecteur correct pour votre titre de modale
+        document.querySelector('.form-separator').style.display = 'block';
+        var modalTitle = document.querySelector('.modal-title'); 
         if (modalTitle) modalTitle.textContent = 'Galerie photo';
-        var addButton = document.querySelector('.add-button'); // Utilisez le sélecteur correct pour votre bouton
+        var addButton = document.querySelector('.add-button'); 
         if (addButton) addButton.style.display = 'block';
         var separator = document.querySelector('.form-separator');
         if (separator) separator.style.display = 'block';
@@ -184,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => {
         recupererImagesGalerie();
         modal.style.display = "block";
-        showGallery(); // S'assure que la galerie est affichée par défaut
+        showGallery();
     });
 
     span.addEventListener('click', () => {
