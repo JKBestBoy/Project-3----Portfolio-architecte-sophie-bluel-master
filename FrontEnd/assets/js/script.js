@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const editIcon = document.createElement('span');
         editIcon.classList.add('mode-edit-icon');
-        editIcon.textContent = '✏️'; // Utilisez ici une icône ou un emoji de votre choix
+        editIcon.innerHTML = '<i class="fa-regular fa-pen-to-square"></i>'; // Remplace l'icône
 
         const editText = document.createTextNode('Mode édition');
 
@@ -219,5 +219,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-
-

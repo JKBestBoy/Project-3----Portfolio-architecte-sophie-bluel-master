@@ -36,22 +36,21 @@ document.addEventListener('DOMContentLoaded', () => {
             img.src = travail.imageUrl;
             img.alt = travail.title;
 
-            const deleteIcon = document.createElement('i');
-            deleteIcon.classList.add('delete-icon');
-            deleteIcon.setAttribute('data-work-id', travail.id);
-            deleteIcon.textContent = '🗑';
-            figure.appendChild(img);
-            figure.appendChild(deleteIcon);
-            modalGallery.appendChild(figure);
+            const deleteIcon = document.createElement('span');
+        deleteIcon.classList.add('delete-icon');
+        deleteIcon.setAttribute('data-work-id', travail.id);
+        deleteIcon.innerHTML = '<i class="fa-solid fa-trash-can"></i>'; // Remplacement de l'icône
+        figure.appendChild(img);
+        figure.appendChild(deleteIcon);
+        modalGallery.appendChild(figure);
 
-            // Ajout d'un écouteur d'événement pour la suppression
-            const token = window.sessionStorage.getItem('token') || window.localStorage.getItem('token');
-            if (token) {
-                removeWork(deleteIcon, token);
-            }
-        });
-    }
-
+        // Ajout d'un écouteur d'événement pour la suppression
+        const token = window.sessionStorage.getItem('token') || window.localStorage.getItem('token');
+        if (token) {
+            removeWork(deleteIcon, token);
+        }
+    });
+}
     // Gestion de l'événement click pour la suppression d'une image
     function removeWork(deleteIcon, token) {
         deleteIcon.addEventListener("click", async event => {
