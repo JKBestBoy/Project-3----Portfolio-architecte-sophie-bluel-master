@@ -1,4 +1,4 @@
-// modal.js
+// Récuperation des éléments du DOM
 document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById("modal");
     const btn = document.getElementById("edition-button");
@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalForm = document.querySelector('.modal-form-content');
     const btnShowForm = document.getElementById('toggleFormButton');
     const btnBackToGallery = document.querySelector('.fas');
+    const separator = document.querySelector('.form-separator');
     const urlApiGallery = "http://localhost:5678/api/works";
-    const urlCategorie = 'http://localhost:5678/api/categories';
 
     // Appel de l'API pour récupérer les images et peupler la galerie modale
     async function recupererImagesGalerie() {
@@ -81,20 +81,18 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector(`.gallery-item[data-id="${workId}"]`).remove();
     }
 
-    
-
     // Affichage du formulaire
     function showForm() {
         modalGallery.style.display = 'none';
         modalForm.style.display = 'block';
         document.querySelector('.form-separator').style.display = 'none'; // Cache la barre de séparation
+
         var modalTitle = document.querySelector('.modal-title');
         if (modalTitle) modalTitle.textContent = 'Ajout photo';
         var addButton = document.querySelector('.add-button');
         if (addButton) addButton.style.display = 'none';
         var formSeparator = document.querySelector('.form-separator');
         if (formSeparator) separator.style.display = 'none';    }
-
 
     async function chargerCategoriesPourFormulaires() {
         const urlCategorie = 'http://localhost:5678/api/categories';
@@ -119,6 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         } catch (erreur) {
             console.error("Erreur lors du chargement des catégories : ", erreur);
+        }
     }
     
     document.addEventListener('DOMContentLoaded', chargerCategoriesPourFormulaires);
@@ -148,38 +147,31 @@ document.addEventListener('DOMContentLoaded', () => {
                     imgPreview.style.maxWidth = '100%';
                     imgPreview.style.height = 'auto';  // Conserver le ratio de l'image
     
-                    // Ajouter l'aperçu de l'image au conteneur
+                    // Ajoute l'aperçu de l'image au conteneur
                     imageUploadContainer.appendChild(imgPreview);
                 };
                 reader.readAsDataURL(file);
             }
         });
     });
-      
-
-
-
-
-    
-
 
     // Affichage de la galerie
     function showGallery() {
         modalGallery.style.display = 'grid';
         modalForm.style.display = 'none';
         document.querySelector('.form-separator').style.display = 'block';
-        var modalTitle = document.querySelector('.modal-title'); 
+        var modalTitle = document.querySelector('.modal-title');
         if (modalTitle) modalTitle.textContent = 'Galerie photo';
-        var addButton = document.querySelector('.add-button'); 
+        var addButton = document.querySelector('.add-button');
         if (addButton) addButton.style.display = 'block';
-        var separator = document.querySelector('.form-separator');
-        if (separator) separator.style.display = 'block';
+        var formSeparator = document.querySelector('.form-separator');
+        if (formSeparator) separator.style.display = 'block';
     }
 
     btn.addEventListener('click', () => {
         recupererImagesGalerie();
         modal.style.display = "block";
-        showGallery();
+        showGallery(); // S'assure que la galerie est affichée par défaut
     });
 
     span.addEventListener('click', () => {

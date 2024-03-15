@@ -1,4 +1,5 @@
 // Sélectionner le formulaire
+document.addEventListener('DOMContentLoaded', () => {
 const form = document.querySelector("form");
 
 form.addEventListener("submit", function (event) {
@@ -50,6 +51,7 @@ form.addEventListener("submit", function (event) {
     // Appeler la fonction fetchUser
     fetchUser();
 });
+});
 
 document.addEventListener('DOMContentLoaded', (event) => {
     const loginButton = document.getElementById('loginButton');
@@ -67,14 +69,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
     } else {
         // Si l'utilisateur n'est pas connecté, attacher la fonctionnalité de connexion normale
         loginButton.addEventListener('click', function() {
-            // Rediriger vers la page de connexion ou ouvrir un modal de connexion, etc.
-            window.location.href = 'loginPage.html'; // Exemple de redirection vers la page de connexion
+            // Rediriger vers la page de connexion
+            window.location.href = 'loginPage.html';
         });
     }
 });
 
 
-// Assurez-vous d'appeler cette fonction après que le DOM est complètement chargé
 document.addEventListener('DOMContentLoaded', checkLoginAndDisplayEditMode);
 
 
@@ -83,7 +84,7 @@ function logout() {
     // Effacer le token de sessionStorage
     window.sessionStorage.removeItem('token');
 
-    // Rediriger l'utilisateur vers la page de connexion ou actualiser la page
+    // Actualiser la page
         window.location.reload();
         console.log("Déconnexion réussie.");
 }

@@ -161,3 +161,63 @@ async function callDataApi(url) {
 }
 
 chooseMode(); // Appelle la fonction principale pour initialiser la page en fonction de l'état de connexion.
+
+
+
+// Soumission du formulaire de la modal et ajout de nouveaux projets
+document.addEventListener('DOMContentLoaded', () => {
+    const addWorkForm = document.getElementById('addPhotoForm');
+    const imageInput = document.getElementById('imageUpload');
+    const titleInput = document.getElementById('imageTitle');
+    const categorySelect = document.getElementById('imageCategory');
+
+    async function fetchAddProject(titleValue, selectedImage, selectedCategoryId) {
+        const formData = new FormData();
+        formData.append("image", selectedImage);
+        formData.append("title", titleValue);
+        formData.append("category", selectedCategoryId);
+        const token = sessionStorage.getItem("token");
+        const apiMessage = document.getElementById('apiMessage'); // Élément pour les réponses de l'API
+
+        try {
+            const response = await fetch("http://localhost:5678/api/works", {
+                method: "POST",
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/json',
+                },
+                body: formData,
+            });
+
+            const responseData = await response.json(); // Supposons que l'API renvoie une réponse JSON
+
+            if (response.ok) {
+                apiMessage.textContent = "Votre projet a bien été ajouté à la base de données";
+                apiMessage.style.color = "green"; // Optionnel : style pour le succès
+                // Ici, vous pouvez également réinitialiser le formulaire ou mettre à jour l'UI comme nécessaire
+            } else {
+                // Gestion des erreurs côté serveur (par exemple, validation échouée)
+                apiMessage.textContent = responseData.message || "Erreur lors de l'ajout du projet";
+                apiMessage.style.color = "red"; // Optionnel : style pour les erreurs
+            }
+        } catch (error) {
+            console.error("Erreur dans l'envoi du formulaire:", error);
+            apiMessage.textContent = "Une erreur réseau est survenue.";
+            apiMessage.style.color = "red"; // Optionnel : style pour les erreurs
+        }
+    }
+
+    if(addWorkForm) {
+        addWorkForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const selectedImage = imageInput.files[0];
+            const titleValue = titleInput.value;
+            const selectedCategoryId = categorySelect.value;
+
+            // Appeler la fonction pour envoyer les données au serveur
+            fetchAddProject(titleValue, selectedImage, selectedCategoryId);
+        });
+    }
+});
+
+
