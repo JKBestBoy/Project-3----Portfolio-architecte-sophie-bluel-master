@@ -54,14 +54,15 @@ document.addEventListener('DOMContentLoaded', () => {
         editButton.style.display = 'none';
     }
 
-    const token = window.sessionStorage.getItem('token'); // ou localStorage selon où vous stockez le token
+    // Si l'utilisateur est connecté, créer la barre d'édition
+    const token = window.sessionStorage.getItem('token');
     if (token) {
         const editBar = document.createElement('div');
         editBar.classList.add('mode-edit-bar');
 
         const editIcon = document.createElement('span');
         editIcon.classList.add('mode-edit-icon');
-        editIcon.innerHTML = '<i class="fa-regular fa-pen-to-square"></i>'; // Remplace l'icône
+        editIcon.innerHTML = '<i class="fa-regular fa-pen-to-square"></i>';
 
         const editText = document.createTextNode('Mode édition');
 
@@ -73,8 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    const userIsLoggedIn = !!window.sessionStorage.getItem('token'); // ou localStorage
-    const filters = document.querySelectorAll('.filter-container'); // Assurez-vous que c'est le bon sélecteur pour vos éléments de filtre
+    const userIsLoggedIn = !!window.sessionStorage.getItem('token');
+    const filters = document.querySelectorAll('.filter-container');
 
     if (userIsLoggedIn) {
         filters.forEach(filter => {
@@ -189,21 +190,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: formData,
             });
 
-            const responseData = await response.json(); // Supposons que l'API renvoie une réponse JSON
+            const responseData = await response.json();
 
             if (response.ok) {
                 apiMessage.textContent = "Votre projet a bien été ajouté à la base de données";
-                apiMessage.style.color = "green"; // Optionnel : style pour le succès
-                // Ici, vous pouvez également réinitialiser le formulaire ou mettre à jour l'UI comme nécessaire
+                
             } else {
-                // Gestion des erreurs côté serveur (par exemple, validation échouée)
+                // Gestion des erreurs côté serveur
                 apiMessage.textContent = responseData.message || "Erreur lors de l'ajout du projet";
-                apiMessage.style.color = "red"; // Optionnel : style pour les erreurs
             }
         } catch (error) {
             console.error("Erreur dans l'envoi du formulaire:", error);
             apiMessage.textContent = "Une erreur réseau est survenue.";
-            apiMessage.style.color = "red"; // Optionnel : style pour les erreurs
         }
     }
 
@@ -219,3 +217,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+

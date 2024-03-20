@@ -5,7 +5,6 @@ const form = document.querySelector("form");
 form.addEventListener("submit", function (event) {
         // Prévenir le comportement par défaut du formulaire
     event.preventDefault();
-
         // Récupérer les valeurs des champs du formulaire
     const emailInput = document.getElementById('email').value;
     const passwordInput = document.getElementById('password').value;
@@ -25,30 +24,28 @@ form.addEventListener("submit", function (event) {
                     password: passwordInput,
                 })
             });
-
             // Si la réponse est positive, traiter le token
             if (response.ok) {
                 const data = await response.json();
                 const token = data.token;
 
-                // Stocker le token dans sessionStorage
+                // Stock le token dans sessionStorage
                 window.sessionStorage.setItem('token', token);
                 
-                // Rediriger l'utilisateur ou actualiser la page pour montrer qu'il est connecté
+                // Redirige l'utilisateur montrer qu'il est connecté
                 window.location.href = 'index.html'
                 console.log("Connexion réussie, token stocké.");
             } else {
-                // Gérer les erreurs d'identifiants
+                // Gére les erreurs d'identifiants
                 throw new Error("Erreur dans l'identifiant ou le mot de passe");
             }
         } catch (error) {
-            // Afficher l'erreur en console et informer l'utilisateur
+            // Affiche l'erreur en console et informer l'utilisateur
             console.error("Une erreur s'est produite:", error);
             alert("Une erreur s'est produite lors de la connexion. Veuillez réessayer plus tard.");
         }
     }
-
-    // Appeler la fonction fetchUser
+    // Appele la fonction fetchUser
     fetchUser();
 });
 });
@@ -56,20 +53,20 @@ form.addEventListener("submit", function (event) {
 document.addEventListener('DOMContentLoaded', (event) => {
     const loginButton = document.getElementById('loginButton');
 
-    // Vérifier si l'utilisateur est connecté
+    // Vérifie si l'utilisateur est connecté
     const token = window.sessionStorage.getItem('token');
     if (token) {
-        // Modifier le texte et la fonctionnalité pour le logout
+        // Modifie le texte et la fonctionnalité pour le logout
         loginButton.textContent = 'logout';
         loginButton.addEventListener('click', function() {
             // Fonctionnalité de déconnexion
-            window.sessionStorage.removeItem('token'); // Supprimer le token
+            window.sessionStorage.removeItem('token'); // Supprime le token
             window.location.reload(); // Rafraîchir la page ou rediriger
         });
     } else {
         // Si l'utilisateur n'est pas connecté, attacher la fonctionnalité de connexion normale
         loginButton.addEventListener('click', function() {
-            // Rediriger vers la page de connexion
+            // Redirige vers la page de connexion
             window.location.href = 'loginPage.html';
         });
     }
@@ -81,10 +78,10 @@ document.addEventListener('DOMContentLoaded', checkLoginAndDisplayEditMode);
 
 // Fonction pour gérer la déconnexion
 function logout() {
-    // Effacer le token de sessionStorage
+    // Efface le token de sessionStorage
     window.sessionStorage.removeItem('token');
 
-    // Actualiser la page
+    // Actualise la page
         window.location.reload();
         console.log("Déconnexion réussie.");
 }
