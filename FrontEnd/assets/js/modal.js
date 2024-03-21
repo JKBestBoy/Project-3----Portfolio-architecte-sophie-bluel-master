@@ -54,41 +54,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     // Gestion de l'événement click pour la suppression d'une image
-    function removeWork(deleteIcon, token) {
+    async function removeWork(deleteIcon, token) {
         deleteIcon.addEventListener("click", async event => {
             event.preventDefault();
-            event.stopPropagation();
-            // Vérifie si l'élément cliqué est l'icône à l'intérieur du span
-            let targetElement = event.target;
-            let workId;
-            // Si l'élément cliqué est l'icône, utilisez son parent pour obtenir l'ID
-            if (targetElement.tagName.toLowerCase() === 'i') {
-                workId = targetElement.parentElement.getAttribute('data-work-id');
-            } else {
-                workId = targetElement.getAttribute('data-work-id');
-            }
+            const workId = event.target.closest('.gallery-item').getAttribute('data-id');
             try {
-                await deleteWork(workId, token);
+                const response = await fetch(`${urlApiGallery}/${workId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+                if (!response.ok) {
+                    throw new Error(`Erreur HTTP ! statut : ${response.status}`);
+                }
+                // Supprime l'élément de la galerie
+                alert(`Votre projet à bien été supprimé.`);
+                document.querySelectorAll(`[data-id="${workId}"]`).forEach(element => {
+                    element.remove();
+                });
             } catch (error) {
-                console.error('An error occurred during work removal: ', error);
+                console.error('Une erreur est survenue lors de la suppression : ', error);
+                // Afficher un message d'erreur dans l'interface utilisateur ici
             }
         });
     }
     
-    // Suppression d'une image via l'API
-    async function deleteWork(workId, token) {
-        const response = await fetch(`${urlApiGallery}/${workId}`, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            },
-        });
-        if (!response.ok) {
-            throw new Error(`Erreur HTTP ! statut : ${response.status}`);
-        }
-        document.querySelector(`.gallery-item[data-id="${workId}"]`).remove(); // Supprime l'élément de la galerie
-    }
 
     // Affichage du formulaire
     function showForm() {
@@ -131,9 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("Erreur lors du chargement des catégories : ", erreur);
         }
     }
-    
-    document.addEventListener('DOMContentLoaded', chargerCategoriesPourFormulaires);
-    
+        
     // Gestionnaire d'événement pour afficher le formulaire
     btn.addEventListener('click', () => {
         chargerCategoriesPourFormulaires(); // S'assure que les catégories sont à jour
@@ -205,4 +195,67 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Gestionnaire d'événement pour revenir à la galerie depuis le formulaire
     btnBackToGallery.addEventListener('click', showGallery);
+
+
+
+    // Soumission du formulaire de la modal et ajout de nouveaux projets
+    const addWorkForm = document.getElementById('addPhotoForm');
+    const imageInput = document.getElementById('imageUpload');
+    const titleInput = document.getElementById('imageTitle');
+    const categorySelect = document.getElementById('imageCategory');
+    const galleryContainer = document.querySelector('.gallery');
+
+    async function fetchAddProject(titleValue, selectedImage, selectedCategoryId) {
+        const formData = new FormData();
+        formData.append("image", selectedImage);
+        formData.append("title", titleValue);
+        formData.append("category", selectedCategoryId);
+        const token = sessionStorage.getItem("token");
+        const apiMessage = document.getElementById('apiMessage'); // Élément pour les réponses de l'API
+
+        try {
+            const response = await fetch("http://localhost:5678/api/works", {
+                method: "POST",
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/json',
+                },
+                body: formData,
+            });
+
+            if (response.ok) {
+                const responseData = await response.json();
+                addNewProjectToGallery(responseData);
+                apiMessage.textContent = "Projet ajouté avec succès !";
+            } else {
+                // Gestion des erreurs côté serveur
+                const errorData = await response.json();
+                apiMessage.textContent = responseData.message || "Erreur lors de l'ajout du projet";
+            }
+        } catch (error) {            
+            console.error("Erreur dans l'envoi du formulaire:", error);
+            apiMessage.textContent = "Une erreur réseau est survenue.";
+        }
+    }
+    function addNewProjectToGallery(projectData) {
+        const newItem = document.createElement('div');
+        newItem.innerHTML = `
+            <img src="${projectData.imageUrl}" alt="${projectData.title}">
+            <p>${projectData.title}</p>
+            `;
+        galleryContainer.appendChild(newItem);
+    }
+
+    if(addWorkForm) {
+        addWorkForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const selectedImage = imageInput.files[0];
+            const titleValue = titleInput.value;
+            const selectedCategoryId = categorySelect.value;
+
+            // Appeler la fonction pour envoyer les données au serveur
+            fetchAddProject(titleValue, selectedImage, selectedCategoryId);
+        });
+    }
+
 });
