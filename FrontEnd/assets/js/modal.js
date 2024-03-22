@@ -69,17 +69,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!response.ok) {
                     throw new Error(`Erreur HTTP ! statut : ${response.status}`);
                 }
-                // Supprime l'élément de la galerie
-                alert(`Votre projet à bien été supprimé.`);
-                document.querySelectorAll(`[data-id="${workId}"]`).forEach(element => {
+                const removedElements = document.querySelectorAll(`.gallery-item[data-id="${workId}"]`);
+                removedElements.forEach(element => {
                     element.remove();
                 });
+    
+                alert(`La réalisation numéro ${workId} a bien été supprimée.`);
             } catch (error) {
                 console.error('Une erreur est survenue lors de la suppression : ', error);
-                // Afficher un message d'erreur dans l'interface utilisateur ici
             }
         });
     }
+    
     
 
     // Affichage du formulaire
