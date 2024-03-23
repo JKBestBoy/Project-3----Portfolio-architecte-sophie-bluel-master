@@ -69,17 +69,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!response.ok) {
                     throw new Error(`Erreur HTTP ! statut : ${response.status}`);
                 }
-                const removedElements = document.querySelectorAll(`.gallery-item[data-id="${workId}"]`);
-                removedElements.forEach(element => {
+                // Supprime l'élément de la galerie
+                document.querySelectorAll(`[data-id="${workId}"]`).forEach(element => {
                     element.remove();
                 });
     
-                alert(`La réalisation numéro ${workId} a bien été supprimée.`);
+                alert(`Votre projet à bien été supprimé.`);
+    
+                recupererImagesGalerie();
             } catch (error) {
                 console.error('Une erreur est survenue lors de la suppression : ', error);
             }
         });
     }
+    
     
     
 
