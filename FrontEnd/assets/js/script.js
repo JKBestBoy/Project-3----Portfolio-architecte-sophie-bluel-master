@@ -24,7 +24,7 @@ async function chooseMode() {
         loginLink.addEventListener("click", logOut); // Attache un gestionnaire d'événement pour gérer la déconnexion.
     } else {
         // Si l'utilisateur n'est pas connecté.
-        editionButton.classList.remove("show");
+        editionButton.classList.remove("hide");
         filtersContainer.classList.remove("hide");
         const categories = await callDataApi(CategoriesURL); // Charge les catégories depuis l'API.
         createFiltersButton(categories); // Crée les boutons de filtre.

@@ -53,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+    
     // Gestion de l'événement click pour la suppression d'une image
     async function removeWork(deleteIcon, token) {
         deleteIcon.addEventListener("click", async event => {
@@ -82,9 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-    
-    
-    
 
     // Affichage du formulaire
     function showForm() {
@@ -162,6 +160,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Sélection du formulaire, des champs input et du bouton valider dans la modal
+    const addPhotoForm = document.getElementById('addPhotoForm');
+    const inputs = addPhotoForm.querySelectorAll('input, select');
+    const validateButton = addPhotoForm.querySelector('button[type="submit"]');
+    
+    // Fonction pour vérifier si tous les champs sont remplis
+    function checkFormFields() {
+        // Utilisation de Array.prototype.every pour vérifier chaque champ
+        const allFilled = Array.from(inputs).every(input => input.value);
+        validateButton.style.backgroundColor = allFilled ? 'green' : ''; // Change la couleur en vert si tous sont remplis
+    }
+    
+    // Ajout d'un gestionnaire d'événements pour chaque champ du formulaire
+    inputs.forEach(input => {
+        input.addEventListener('input', checkFormFields);
+    });
+    
+    // Initialisation manuelle au chargement de la page pour gérer les valeurs par défaut
+    checkFormFields();
+
     // Affichage de la galerie
     function showGallery() {
         modalGallery.style.display = 'grid'; // Affiche la galerie
@@ -182,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showGallery(); // Affiche la galerie par défaut
     });
 
-     // Gestionnaire d'événement pour fermer la modal en cliquant sur le bouton de fermeture
+    // Gestionnaire d'événement pour fermer la modal en cliquant sur le bouton de fermeture
     span.addEventListener('click', () => {
         modal.style.display = "none"; // Cache le modal
     });
@@ -199,8 +217,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Gestionnaire d'événement pour revenir à la galerie depuis le formulaire
     btnBackToGallery.addEventListener('click', showGallery);
-
-
 
     // Soumission du formulaire de la modal et ajout de nouveaux projets
     const addWorkForm = document.getElementById('addPhotoForm');
